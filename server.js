@@ -19,10 +19,11 @@ http.createServer((request, response) => {
         } else {
             console.log('Added to log.');
         }
-        response.writeHead(200, { 'Content-Type': 'text/plain' });
+       
     });
-    
-        response.end('Success!\n');
+    response.writeHead(200, { 'Content-Type': 'text/plain' });
+    response.write(data);
+    response.end('Success!\n');
 }).listen(8080);
 
 console.log('My first Node test server is running on Port 8080.');
