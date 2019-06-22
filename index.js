@@ -3,7 +3,7 @@
 /*eslint no-console: ["error", { allow: ["log", "error"] }] */
 
 const express = require('express');
-    morgan = require('morgan');
+morgan = require('morgan');
 
 const app = express();
 
@@ -12,10 +12,10 @@ app.use(express.static('public'));
 app.use(morgan('common'));
 
 //Error handling middleware functions
-app.use(function (err,req,res,next){
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-    next();
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+  next();
 });
 
 let topMovies = [
@@ -200,8 +200,6 @@ let topMovies = [
   }
 ];
 
-
-
 //GET Requests
 app.get('/movies', function(req, res) {
   res.json(topMovies);
@@ -211,7 +209,6 @@ app.get('/movies', function(req, res) {
 app.get('/', function(req, res) {
   res.send('Textual Response');
 });
-
 
 app.listen(3004);
 
