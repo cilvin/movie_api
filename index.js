@@ -212,9 +212,6 @@ app.get('/', function(req, res) {
   res.send('Textual Response');
 });
 
-//GET document.html
-express.static('/public/document.html',['html']);
-    
 
 app.listen(3003);
 
