@@ -1,7 +1,6 @@
 {
   "name": "js",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -12,5 +11,16 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "morgan": "^1.9.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cilvin/movie_api.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/cilvin/movie_api/issues"
+  },
+  "homepage": "https://github.com/cilvin/movie_api#readme",
+  "description": ""
 }
