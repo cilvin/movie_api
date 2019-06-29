@@ -3,7 +3,10 @@
 /*eslint no-console: ["error", { allow: ["log", "error"] }] */
 
 const express = require('express');
-morgan = require('morgan');
+  morgan = require('morgan');
+  bodyParser = require('body-parser');
+  //uuid = require('uuid');
+
 
 const app = express();
 
@@ -18,7 +21,7 @@ app.use(function(err, req, res, next) {
   next();
 });
 
-let topMovies = [
+let movies = [
   {
     title: 'I am Legend',
     description:
@@ -200,16 +203,178 @@ let topMovies = [
   }
 ];
 
-//GET Requests
+let directors = [ 
+  {
+    name: 'Wolfgang Petersen',
+    bio:
+      'This director seems to shine most when making movies that can best be described as part action movies/part disaster movies.',
+    birthyear: '1941',
+    deathyear: 'N/A',
+    movies: ['Outbreak', 'The Swarm']
+  },
+
+  {
+    name: 'Fernando Meirelles',
+    bio:
+      'He studied architecture at the university of São Paulo. At the same time he developed an interest in filmmaking. With a group of friends he started producing experimental videos. They won a huge number of awards in Brazilian film festivals. After that, the group formed a small independent company called Olhar Eletrônico.',
+    birthyear: '1955',
+    deathyear: 'N/A',
+    movies: ['City of God', 'Brasilia']
+  },
+
+  {
+    name: 'Chris Robinson',
+    bio:
+      'Award-winning director Chris Robinson delivers imagery for commercial, music video, feature film and digital platforms. Robinson\'s commercial work includes campaigns for global brands like Reebok, Orange, Mountain Dew, Budweiser, Kodak, Gatorade, Apple, Coca-Cola, and Verizon.',
+    birthyear: 'N/A',
+    deathyear: 'N/a',
+    movies: ['ATL', 'Beats']
+  },
+
+  {
+    name: 'Ridley Scott',
+    bio:
+      'His father was an officer in the Royal Engineers and the family followed him as his career posted him throughout the United Kingdom and Europe before they eventually returned to Teesside. Scott wanted to join the Royal Army (his elder brother Frank had already joined the Merchant Navy) but his father encouraged him to develop his artistic talents instead and so he went to West Hartlepool College of Art and then London\'s Royal College of Art where he helped found the film department.',
+    birthyear: '1937',
+    deathyear: 'N/A',
+    movies: ['Gladiator', 'Alien', 'Blade Runner']
+  },
+
+  {
+    name: 'John Singleton',
+    bio:
+      ' John Singleton attended the Film Writing Program at USC, after graduating from high school in 1986. While studying there, he won three writing awards from the university, which led to a contract with Creative Artists Agency during his sophomore year.',
+    birthyear: '1968',
+    deathyear: '2019',
+    movies: ['Boyz n the Hood', '2 Fast 2 Furious', 'Four Brothers']
+  },
+
+  {
+    name: 'Peter Jackson',
+    bio:
+      'Peter Jackson was born as an only child in a small coast-side town in New Zealand. When a friend of his parents bought him a super 8 movie camera, the then eight-year-old Peter instantly grabbed the thing to start recording his own movies, which he made with his friends.',
+    birthyear: '1961',
+    deathyear: 'N/A',
+    movies: ['Lord of the Rings', 'Heavenly Creatures', 'Dead Alive']
+  },
+
+  {
+    name: 'Quentin Tarantino',
+    bio:
+      'American filmmaker and actor. His films are characterized by nonlinear storylines, satirical subject matter, an aestheticization of violence, extended scenes of dialogue, ensemble casts consisting of established and lesser-known performers, references to popular culture and a wide variety of other films, soundtracks primarily containing songs and score pieces from the 1960s to the 1980s, and features of neo-noir film.',
+    birthyear: '1963',
+    deathyear: 'N/A',
+    movies: ['Pulp Fiction', 'Kill Bill']
+  },
+
+  {
+    name: 'Garth Davis',
+    bio:
+      'Garth Davis is a renowned film, television and commercials director whose feature directorial debut Lion was nominated for six Academy Awards including Best Picture.',
+    birthyear: '1974',
+    deathyear: 'N/A',
+    movies: ['Lion', 'Mary Magdalene']
+  },
+
+  {
+    name: 'Paul McGuigan',
+    bio:
+      'a Scottish film and television director, best known for directing films such as Lucky Number Slevin',
+    birthyear: '1963',
+    deathyear: 'N/A',
+    movies: ['Lucky Number Slevin', 'Wicker Park']
+  },
+
+  {
+    name: 'Francis Lawrence',
+    bio:
+      'He is a director and producer, after establishing himself as a director of music videos and commercials, Lawrence made his feature length directorial debut with the supernatural thriller Constantine.',
+    birthyear: '1971',
+    deathyear: 'N/A',
+    movies: ['Catching Fire', 'Constantine']
+  },
+
+];
+
+let users = [
+  {
+    username: 'Mia',
+    password: 'hellopassword',
+    email: '456@gmail.com',
+    birthdate: '01/01/2000',
+    favoritemovies:[]
+  },
+  {
+    username: 'Tay',
+    password: 'yopassword',
+    email: '789@gmail.com',
+    birthdate: '02/01/1994',
+    favoritemovies:[]
+  },
+  {
+    username: 'Ray',
+    password: 'yellopassword',
+    email: '123@gmail.com',
+    birthdate: '03/01/1999',
+    favoritemovies:[]
+  }
+
+];
+
+//Returns a JSON object containing data about all movies
 app.get('/movies', function(req, res) {
-  res.json(topMovies);
+  res.json(movies);
 });
 
-//GET Default Response
-app.get('/', function(req, res) {
-  res.send('Textual Response');
+//Return JSON object about a single movie selcted by the user via title
+app.get('/movies/:title', function(req, res) {
+  res.json(movies.find(function(movie) {
+    return movie.title === req.params.title
+}));
 });
 
-app.listen(3004);
+// Return the genre of the movie selected
+app.get('/movies/:title/genre', function(req, res) {
+  let movie = movies.find(function(movie) {
+    return movie.title === req.params.title
+  });
+
+  if (movie) {
+    res.status(201).send('The genre of ' + movie.title + ' is ' + movie.genre)
+  } else {
+    res.status(404).send('Movie without the title ' + req.params.title + 'was not found');
+  }
+});
+
+//Return text response about a director (bio, birth year, death year) that was selected by the user
+app.get('/directors/:name', function(req, res) {
+  let director = directors.find(function(directors) {
+    return directors.name === req.params.name
+  });
+
+  if(director) {
+    res.status(201).send( req.params.name + ' was born in ' + director.birthyear + ' their death year was ' + director.deathyear + ' and this is a short summary of their bioraphy: ' + director.bio )
+  } else {
+    res.status(404).send( req.params.name + 'was not found');
+  }
+});
+
+//Allows new users to register
+app.post('/users', (req, res) => {
+  let newUser = req.body;
+
+  if (!newUser.username) {
+    const message = 'Missing username';
+    res.status(400).send(message);
+  } else {
+    
+    users.push(newUser);
+    res.status(201).send(newUser);
+  }
+});
+
+
+
+app.listen(3007);
 
 console.log('yup');
