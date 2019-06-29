@@ -1,11 +1,11 @@
-/*global bodyParser:true  morgan:true require:true*/
+/*global uuid:true bodyParser:true  morgan:true require:true*/
 /*eslint no-undef:  "error"*/
 /*eslint no-console: ["error", { allow: ["log", "error"] }] */
 
 const express = require('express');
   morgan = require('morgan');
   bodyParser = require('body-parser');
-  //uuid = require('uuid');
+  uuid = require('uuid');
 
 
 const app = express();
@@ -299,27 +299,13 @@ let directors = [
 
 let users = [
   {
-    username: 'Mia',
+    name: 'Mia',
     password: 'hellopassword',
     email: '456@gmail.com',
     birthdate: '01/01/2000',
     favoritemovies:[]
-  },
-  {
-    username: 'Tay',
-    password: 'yopassword',
-    email: '789@gmail.com',
-    birthdate: '02/01/1994',
-    favoritemovies:[]
-  },
-  {
-    username: 'Ray',
-    password: 'yellopassword',
-    email: '123@gmail.com',
-    birthdate: '03/01/1999',
-    favoritemovies:[]
   }
-
+ 
 ];
 
 //Returns a JSON object containing data about all movies
@@ -364,11 +350,11 @@ app.get('/directors/:name', function(req, res) {
 app.post('/users', function (req, res)  {
   let newUser = req.body;
 
-  if (!newUser.username) {
+  if (!newUser.name) {
     const message = 'Username needed to register';
     res.status(400).send(message);
   } else {
-    
+    newUser.id = uuid.v4();
     users.push(newUser);
     res.status(201).send(newUser);
   }
