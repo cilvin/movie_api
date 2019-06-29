@@ -1,5 +1,5 @@
-/*global  morgan:true require:true*/
-/*eslint no-undef: "error"*/
+/*global bodyParser:true  morgan:true require:true*/
+/*eslint no-undef:  "error"*/
 /*eslint no-console: ["error", { allow: ["log", "error"] }] */
 
 const express = require('express');
@@ -13,6 +13,7 @@ const app = express();
 //Invoke middleware functions
 app.use(express.static('public'));
 app.use(morgan('common'));
+app.use(bodyParser.json());
 
 //Error handling middleware functions
 app.use(function(err, req, res, next) {
@@ -360,11 +361,11 @@ app.get('/directors/:name', function(req, res) {
 });
 
 //Allows new users to register
-app.post('/users', (req, res) => {
+app.post('/users', function (req, res)  {
   let newUser = req.body;
 
   if (!newUser.username) {
-    const message = 'Missing username';
+    const message = 'Username needed to register';
     res.status(400).send(message);
   } else {
     
@@ -375,6 +376,6 @@ app.post('/users', (req, res) => {
 
 
 
-app.listen(3007);
+app.listen(3009);
 
 console.log('yup');
