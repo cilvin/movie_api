@@ -303,7 +303,7 @@ let users = [
     password: 'hellopassword',
     email: '456@gmail.com',
     birthdate: '01/01/2000',
-    favoritemovies:[]
+    favoritemovies:[{ title: 'Sandlot'}]
   }
  
 ];
@@ -360,8 +360,46 @@ app.post('/users', function (req, res)  {
   }
 });
 
+//Allows users to update user info
+app.put('/users/:name/:password', function(req, res) {
+  res.send('Your name/password successfully updated.');
+});
+
+app.put('/users/:name/:email/:birthdate', function (req, res) {
+  res.send('Your data successfully updated.');
+});
+
+//Allows users to add a movie to their list of favorites
+app.post('/users/:name/favoritemovies', function (req, res) {
+  let newFavorite = req.body;
+
+  if(!newFavorite.title) {
+    const message = 'Missing movie title';
+    res.status(400).send(message);
+  } else {
+    let user = users.find(function (user) {
+      return user.name === req.params.name
+    });
+    user.favoritemovies.push(newFavorite);
+    res.status(201).send(user.favorites);
+  }
+});
+
+//Allow users to remove a movie from their list of favorites
+app.delete('/users/:name/favoritemovies', function (req, res) {
+  res.send('One favorite movie deleted')
+});
+
+//Allows existing users to deregister
+app.delete('/users/:name', function (req, res) {
+  res.send('User profile has been deleted')
+});
 
 
-app.listen(3009);
+
+
+
+
+app.listen(8080);
 
 console.log('yup');
