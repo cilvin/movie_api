@@ -2,11 +2,11 @@
 /*eslint no-undef:  "error"*/
 /*eslint no-console: ["error", { allow: ["log", "error"] }] */
 
-const express = require('express'),
-  app = express(),
-  morgan = require('morgan'),
-  bodyParser = require('body-parser'),
-  uuid = require('uuid');
+const express = require('express');
+const app = express();
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const uuid = require('uuid');
 
 
 
