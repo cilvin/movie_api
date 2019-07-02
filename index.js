@@ -2,13 +2,14 @@
 /*eslint no-undef:  "error"*/
 /*eslint no-console: ["error", { allow: ["log", "error"] }] */
 
-const express = require('express');
-  morgan = require('morgan');
-  bodyParser = require('body-parser');
+const express = require('express'),
+  app = express(),
+  morgan = require('morgan'),
+  bodyParser = require('body-parser'),
   uuid = require('uuid');
 
 
-const app = express();
+
 
 //Invoke middleware functions
 app.use(express.static('public'));
