@@ -382,7 +382,7 @@ app.post('/users/:name/favoritemovies', function (req, res) {
       return user.name === req.params.name
     });
     user.favoritemovies.push(newFavorite);
-    res.status(201).send(user.favorites);
+    res.status(201).send(newFavorite);
   }
 });
 
