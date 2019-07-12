@@ -25,44 +25,44 @@
             <tbody>
                 <tr>
                     <td>Return a list of ALL movies to the user</td>
-                    <td>/movies</td>
+                    <td>/Movies</td>
                     <td>GET</td>
                     <td>None</td>
                     <td>JSON object holding data about all of the movies</td> 
                 </tr>
                 <tr>
                     <td>Return data about a single movie by title to the user</td>
-                    <td>/movies/:Title</td>
+                    <td>/Movies/:Title</td>
                     <td>GET</td>
                     <td>None</td>
                     <td>JSON object holding data about the movie selected by the user</td>
                 </tr>
                 <tr>
                     <td>Return data about a genre by movie title</td>
-                    <td>/Movies/:Title/genre</td>
+                    <td>/Genre/:Name</td>
                     <td>GET</td>
                     <td>None</td>
                     <td>JSON object holding data about the genre of the movie that was selected by the user </td>
                 </tr>
                 <tr>
                     <td>Return data about a director by name</td>
-                    <td>/directors/:name</td>
+                    <td>/Director/:Name</td>
                     <td>GET</td>
                     <td>None</td>
                     <td>JSON object holding data about the director selected by the user</td>
                 </tr>
                 <tr>
                     <td>Allow new users to register</td>
-                    <td>/users</td>
+                    <td>/Users</td>
                     <td>POST</td>
                     <td>A JSON object holding data about the user like so:
                         <p class="example">
                             {
-                            username: 'Mia',
-                            password: 'hellopassword',
-                            email: '456@gmail.com',
-                            birthdate: '01/01/2000',
-                            favoritemovies:[]
+                            Username: 'Mia',
+                            Password: 'hellopassword',
+                            Email: '456@gmail.com',
+                            Birthday: '01/01/2000',
+                            FavoriteMovies:[]
                             }
                         </p>
                     </td>
@@ -70,11 +70,11 @@
                         <p class="example">
                             {
                             id: '12283080d8038d08d0d',
-                            username: 'Mia',
-                            password: 'hellopassword',
-                            email: '456@gmail.com',
-                            birthdate: '01/01/2000',
-                            favoritemovies:[]
+                            Username: 'Mia',
+                            Password: 'hellopassword',
+                            Email: '456@gmail.com',
+                            Birthday: '01/01/2000',
+                            FavoriteMovies:[]
                             }
                         </p>
                     </td>
@@ -85,12 +85,12 @@
                     <td>POST</td>
                     <td>JSON object holding existing user information like so (ID cannot be changed and users are not required to change any specific field):
                        <p class="example">
-                            {
-                            username: 'Mia',
-                            password: 'hellopassword',
-                            email: '456@gmail.com',
-                            birthdate: '01/01/2000',
-                            favoritemovies:[]
+                         {
+                            Username: 'Mia',
+                            Password: 'hellopassword',
+                            Email: '456@gmail.com',
+                            Birthday: '01/01/2000',
+                            FavoriteMovies:[]
                         }
                         </p>
                     </td>
@@ -105,35 +105,45 @@
                 </tr>
                 <tr>
                     <td>Allow users to add a movie to their list of favorites</td>
-                    <td>/users/:username/favorites/:movieID</td>
+                    <td>/users/:username/FavoriteMovies/:ObjectId</td>
                     <td>POST</td>
                     <td>None</td>
                     <td>JSON object holding data about the user with the updated version of their movie list:
                         <p class="example">
                             {
                                 id: '12283080d8038d08d0d',
-                                username: 'Mia',
-                                password: 'hellopassword',
-                                email: '456@gmail.com',
-                                birthdate: '01/01/2000',
-                                favoritemovies:['389y9d8d9']
+                                Username: 'Mia',
+                                Password: 'hellopassword',
+                                Email: '456@gmail.com',
+                                Birthday: '01/01/2000',
+                                FavoriteMovies:['389y9d8d9']
                             }
                         </p>   
                     </td>
                 </tr>
                 <tr>
                     <td>Allow users to remove a movie from their list of favorites</td>
-                    <td>/users/:username/favorites/:movieID</td>
+                    <td>/users/:username/FavoriteMovies/:ObjectId</td>
                     <td>DELETE</td>
                     <td>None</td>
                     <td>JSON object with data about the user, showing the list of favorite movies without the deleted movie/movies</td>
+                        <p class="example">
+                        {
+                            id: '12283080d8038d08d0d',
+                            Username: 'Mia',
+                            Password: 'hellopassword',
+                            Email: '456@gmail.com',
+                            Birthday: '01/01/2000',
+                            FavoriteMovies:['389y9d8d9']
+                        }
+                        </p>   
                 </tr>
                 <tr>
                     <td>Allow existing users to deregister</td>
-                    <td>/users/:username</td>
+                    <td>/Users/:Name</td>
                     <td>None</td>
                     <td>Text message confirming that the users account has been deleted:
-                        <p class="example">Mias account has been deleted</p>
+                        <p class="example">Mia was successfully deleted</p>
                     </td>
                 </tr>
             </tbody>
