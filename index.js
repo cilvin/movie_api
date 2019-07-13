@@ -12,7 +12,7 @@ const Models = require('./model.js');
 const Movies = Models.Movie;
 const Users  = Models.User;
 
-mongoose.connect('mongod://localhost:27017/MovieReel', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/MovieReel', {useNewUrlParser: true});
 
 
 
@@ -52,7 +52,7 @@ app.get('/Movies/:Title', function(req, res)  {
 
 
 
-// Return the genre of the movie selected
+// Return the genre description by name
 app.get('/Genre/:Name', function(req, res) {
   Movies.findOne({
     'Genre.Name' : req.params.Name
@@ -122,8 +122,8 @@ app.post('/Users', function (req, res)  {
   (required)
   Birthday: Date
 } */
-app.put('/users/:name/:password', function(req, res) {
-  Users.findOneAndUpdate({
+app.put('/users/:Username', function(req, res) {
+  Users.update({
     Username: req.params.Username
   }, {$set :
       {
@@ -147,38 +147,42 @@ app.put('/users/:name/:password', function(req, res) {
 
 
 //Allows users to add a movie to their list of favorites
-app.post('/Users/:Username/FavoriteMovies/:ObjectId', function (req, res) {
-  Users.findOneAndUpdate({
-    $push: {FavoriteMovies: req.params.ObjectId}
-  },
-  {new: true})
-  .then(updatedUser => {
-    res.json(updatedUser);
-  })
-  .catch(err => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
-    });
+app.post('/Users/:Username/FavoriteMovies/:MovieID', function (req, res) {
+  Users.update({Username : req.params.Username},
+   {
+    $push: {FavoriteMovies: req.params.MovieID}
+   },
+  {new: true},
+  function(err, updatedUser) {
+    if (err) { 
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser)
+    }
+    })
   });
 
 //Allow users to remove a movie from their list of favorites
-app.delete('/Users/:Username/FavoriteMovies/:ObjectId', function (req, res) {
-  Users.findOneAndUpdate({Username: req.params.Username}, {
-    $pull: {FavoriteMovies: req.params.ObjectId}
+app.delete('/Users/:Username/FavoriteMovies/:MovieID', function (req, res) {
+  Users.update({Username: req.params.Username}, {
+    $pull: {FavoriteMovies: req.params.MovieID}
   },
-  {new: true})
-  .then(item => {
-    res.json(item)
+  {new: true},
+  function (err, updatedUser) {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser)
+    }
   })
-  .catch(err => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
-    });
+ 
 });
 
 
 //Allows existing users to deregister
-app.delete('/users/:name', function (req, res) {
+app.delete('/users/:Username', function (req, res) {
   Users.findOneAndRemove({Username: req.params.Username})
   .then(user => {
     if(!user) {
