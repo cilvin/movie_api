@@ -1,4 +1,5 @@
-const mongoose =('mongoose');
+/*global require:true   module:true */
+const mongoose = require('mongoose');
 
 var movieSchema = mongoose.Schema({
     Title : {type: String, required : true},
