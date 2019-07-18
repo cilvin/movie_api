@@ -12,6 +12,7 @@ const Models = require('./model.js');
 const Movies = Models.Movie;
 const Users  = Models.User;
 const passport = require('passport');
+const cors = require('cors');
 require('./passport');
 
 mongoose.set('useFindAndModify', false);
@@ -24,6 +25,7 @@ mongoose.connect('mongodb://localhost:27017/MovieReel', {useNewUrlParser: true})
 app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
+app.use(cors());
 
 var auth = require('./auth')(app);
 
@@ -91,16 +93,19 @@ app.get('/Director/:Name', passport.authenticate('jwt', { session:false}), funct
 
 //Allows new users to register
 app.post('/Users', function (req, res)  {
+  var hashedPassword = Users.hashPassword(req.body.Password
+    );
   Users.findOne({
     Username : req.body.Username
-  })
+  }) //Search to see if a user with requested username already exists
   .then(function(user) {
     if (user) {
+      // If the user is found, send a response that is already exists
       return res.status(400).send(req.body.Username + 'already exists');
     } else {
       Users.create({
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       })
