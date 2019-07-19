@@ -13,6 +13,7 @@ const Movies = Models.Movie;
 const Users  = Models.User;
 const passport = require('passport');
 const cors = require('cors');
+const {check, validationResult } = require('express-validator');
 require('./passport');
 
 mongoose.set('useFindAndModify', false);
@@ -26,6 +27,7 @@ app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(cors());
+
 
 var auth = require('./auth')(app);
 
@@ -92,7 +94,20 @@ app.get('/Director/:Name', passport.authenticate('jwt', { session:false}), funct
   
 
 //Allows new users to register
-app.post('/Users', function (req, res)  {
+app.post('/Users',[
+// Validation logic here for request
+  check('Username').isAlphanumeric(),
+  check('Password').isLength({ min: 5}),
+  check('Email').normalizeEmail().isEmail()
+], (req, res) => {
+
+  // check validation object for errors
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty) {
+    return res.status(422).json({ errors: errors.array});
+  }
+  
   var hashedPassword = Users.hashPassword(req.body.Password
     );
   Users.findOne({
@@ -132,13 +147,29 @@ app.post('/Users', function (req, res)  {
   (required)
   Birthday: Date
 } */
-app.put('/users/:Username', passport.authenticate('jwt', { session:false}), function(req, res) {
+app.put('/Users/:Username', passport.authenticate('jwt', { session:false}), [
+  
+    check('Username').isAlphanumeric(),
+    check('Password').isLength({ min: 5}),
+    check('Email').normalizeEmail().isEmail()
+  ], (req, res) => {
+  // check validation object for errors
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty) {
+    return res.status(422).json({ errors: errors.array});
+  }
+  
+
+  var hashedPassword = Users.hashPassword(req.body.Password
+    );
+
   Users.findOneAndUpdate({
     Username: req.params.Username
   }, {$set :
       {
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
 
