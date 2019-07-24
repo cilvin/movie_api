@@ -40,6 +40,11 @@ app.use(function(err, req, res, next) {
 });
 
 
+// default response when request hits the root folder
+app.get('/', (req, res) => {
+  res.send('Welcome to myFlixDB!');
+});
+
 //Returns a JSON object containing data about all movies
 app.get('/Movies', passport.authenticate('jwt', { session:false}), function(req, res) {
   Movies.find().then(Movies => res.json(Movies));
