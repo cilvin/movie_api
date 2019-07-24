@@ -18,7 +18,7 @@ require('./passport');
 
 mongoose.set('useFindAndModify', false);
 //mongoose.connect('mongodb://localhost:27017/MovieReel', {useNewUrlParser: true});
-mongoose.connect('mongodb+srv://cilvin:"!808Finesse"@cluster0-r1vsv.mongodb.net/MovieReel?retryWrites=true&w=majority', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://cilvin:!808Finesse@cluster0-r1vsv.mongodb.net/MovieReel?retryWrites=true&w=majority', {useNewUrlParser: true});
 
 
 
@@ -244,7 +244,7 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session:false}), f
 
 
 var port = process.env.PORT || 3000;
-app.listen(port, "0.0.0.0", function() {
+app.listen(port, '0.0.0.0', function() {
 console.log('Listening on port 3000');
 });
 
