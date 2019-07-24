@@ -18,7 +18,7 @@ require('./passport');
 
 mongoose.set('useFindAndModify', false);
 //mongoose.connect('mongodb://localhost:27017/MovieReel', {useNewUrlParser: true});
-mongoose.connect('mongodb+srv://cilvin:!808Finesse@cluster0-r1vsv.mongodb.net/MovieReel?retryWrites=true&w=majority', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://cilvin:"!808Finesse"@cluster0-r1vsv.mongodb.net/MovieReel?retryWrites=true&w=majority', {useNewUrlParser: true});
 
 
 
