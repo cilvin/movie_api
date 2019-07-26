@@ -8,6 +8,10 @@
   ],
   "rules": {
     "quotes": ["error", "single"]
-  }
+  },
+  "parserOptions": {
+    "sourceType": "module",
+},
+"parser": "babel-eslint"
 }
 
