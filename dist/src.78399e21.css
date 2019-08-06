@@ -76,6 +76,9 @@ span:hover {
   background-color: #bdc0c1;
   min-height: 10px; }
 
+span {
+  text-decoration: none; }
+
 .my-flix {
   color: blue; }
 
