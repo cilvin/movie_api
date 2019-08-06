@@ -36,7 +36,8 @@ p {
   font-size: 20px; }
 
 span {
-  text-decoration: underline; }
+  text-decoration: underline;
+  color: #868d9b; }
 
 span:hover {
   cursor: pointer; }
