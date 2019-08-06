@@ -94,7 +94,7 @@ export class MainView extends React.Component {
         if(!movies) return <body className='mv'/>;
 
         return (
-            <body className='mv'>
+            <div className='mv'>
                
                 <Navbar   className='title' fluid='true' ><Navbar.Brand className='t'>Welcome to my Movie Reel App</Navbar.Brand></Navbar>
                 
@@ -109,7 +109,7 @@ export class MainView extends React.Component {
                 </Container>
                 <Navbar fixed='bottom'  className='foot' fluid='true' ><Navbar.Brand className='t'></Navbar.Brand></Navbar>
                 
-            </body>
+            </div>
         );
     }
 }

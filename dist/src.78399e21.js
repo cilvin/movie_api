@@ -32470,7 +32470,7 @@ function (_React$Component) {
       if (!movies) return _react.default.createElement("body", {
         className: "mv"
       });
-      return _react.default.createElement("body", {
+      return _react.default.createElement("div", {
         className: "mv"
       }, _react.default.createElement(_Navbar.default, {
         className: "title",
