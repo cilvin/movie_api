@@ -63,9 +63,6 @@ app.get('/Movies/:Title', passport.authenticate('jwt', { session:false}), functi
     res.status(500).send('Error:' + err);
   });
 });
-  
-
-
 
 // Return the genre description by name
 app.get('/Genre/:Name', passport.authenticate('jwt', { session:false}), function(req, res) {
