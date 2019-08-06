@@ -1,4 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import './movie-card.scss'
 
 export class MovieCard extends React.Component {
     render() {
@@ -8,7 +12,28 @@ export class MovieCard extends React.Component {
     const { movie, onClick } = this.props;
 
     return (
-        <div onClick={() => onClick(movie)} className='movie-card'>{movie.Title}</div>
+        <Card>
+            <Card.Header className='CH'  as='center' onClick={() => onClick(movie)} className='movie-card'>{movie.Title}
+            </Card.Header>
+            <br>
+            </br>
+            <br>
+            </br>
+            <br>
+            </br>
+            <br>
+            </br>
+            <br>
+            </br>
+            <Button type='button' as='button' className='cardbtn' variant='outline-dark' size='sm'   onClick={() => onClick(movie)} className='movie-button'>Click Here</Button>
+        </Card>
         );
     }
 }
+
+MovieCard.propTypes = {
+    movie: PropTypes.shape({
+        Title: PropTypes.string
+    }).isRequired,
+    onClick: PropTypes.func.isRequired
+};
