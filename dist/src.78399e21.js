@@ -32475,9 +32475,7 @@ function (_React$Component) {
       }, _react.default.createElement(_Navbar.default, {
         className: "title",
         fluid: "true"
-      }, _react.default.createElement(_Navbar.default.Brand, {
-        className: "t"
-      }, "Welcome to my Movie Reel App")), _react.default.createElement(_Container.default, {
+      }, _react.default.createElement(_Navbar.default.Brand, null, "Welcome to my Movie Reel App")), _react.default.createElement(_Container.default, {
         className: "main-view"
       }, _react.default.createElement(_Row.default, null, selectedMovie ? _react.default.createElement(_Col.default, null, _react.default.createElement(_movieView.MovieView, {
         movie: selectedMovie,

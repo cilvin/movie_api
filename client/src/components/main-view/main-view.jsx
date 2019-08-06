@@ -96,7 +96,7 @@ export class MainView extends React.Component {
         return (
             <div className='mv'>
                
-                <Navbar   className='title' fluid='true' ><Navbar.Brand className='t'>Welcome to my Movie Reel App</Navbar.Brand></Navbar>
+                <Navbar   className='title' fluid='true' ><Navbar.Brand >Welcome to my Movie Reel App</Navbar.Brand></Navbar>
                 
                 <Container className='main-view'>
                     <Row>
